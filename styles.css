@@ -483,10 +483,48 @@ section {
 
 /* TODO: Add typing animation */
 @keyframes typing {
-  /* Your implementation here */
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.hero-title {
+  font-size: var(--font-size-3xl);
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--color-primary);
+  animation:
+    typing 3s steps(30, end),
+    blink 0.5s step-end infinite;
+  animation-delay: 0.5s;
+  animation-fill-mode: both;
 }
 
 /* TODO: Add float animation for background elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+.floating-shape {
+  position: absolute;
+  opacity: 0.1;
+  animation: float 6s var(--ease-in-out) infinite;
+}
+
+.floating-shape:nth-child(1) { animation-delay: 0s; }
+.floating-shape:nth-child(2) { animation-delay: 2s; }
+.floating-shape:nth-child(3) { animation-delay: 4s; }
 
 /* ==========================================
    UTILITY CLASSES

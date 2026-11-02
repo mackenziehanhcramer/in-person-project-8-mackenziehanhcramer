@@ -127,3 +127,14 @@ function debounce(func, wait) {
 }
 
 // TODO: Apply debounce to scroll event handlers
+// Parallax effect for hero section (debounced: the helper is at the bottom of script.js)
+window.addEventListener('scroll', debounce(() => {
+  const scrolled = window.pageYOffset;
+  const parallaxElements = document.querySelectorAll('.parallax');
+
+  parallaxElements.forEach(el => {
+    const speed = el.dataset.speed || 0.5;
+    const yPos = -(scrolled * speed);
+    el.style.transform = `translateY(${yPos}px)`;
+  });
+}, 10));
