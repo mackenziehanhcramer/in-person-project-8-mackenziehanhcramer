@@ -95,7 +95,26 @@ body {
   cursor: pointer;
   z-index: 1000;
   font-size: 1.5rem;
-  /* TODO: Add hover effect and transition */
+  /* inside body { ... }, where the TODO is */
+  transition: background-color var(--transition-slow),
+              color var(--transition-slow);
+
+/* inside .theme-toggle { ... }, where the TODO is */
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+/* add below the .theme-toggle rule */
+.theme-toggle:hover {
+  transform: rotate(180deg);
+  border-color: var(--color-primary);
+}
+
+@keyframes spin-once {
+  to { transform: rotate(360deg); }
+}
+
+.theme-toggle.spinning {
+  animation: spin-once var(--transition-slow) var(--ease-in-out);
 }
 
 /* Hide moon in light mode, sun in dark mode */
@@ -436,7 +455,30 @@ section {
 
 /* TODO: Add fadeInUp animation */
 @keyframes fadeInUp {
-  /* Your implementation here */
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Staggered animation for grid children */
+@keyframes fadeInStagger {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* TODO: Add typing animation */
@@ -450,18 +492,30 @@ section {
    UTILITY CLASSES
    ========================================== */
 
+/* Animation classes */
 .animate-on-scroll {
-  /* TODO: Set initial state for scroll animations */
+  opacity: 0;
 }
 
 .animate-on-scroll.visible {
-  /* TODO: Apply animation when visible */
+  animation: fadeInUp var(--transition-slower) var(--ease-out) forwards;
 }
 
-/* Staggered animations */
+/* Grid children start hidden and fade in one after another once the grid is visible */
 .stagger-children > * {
-  /* TODO: Add staggered delay for children */
+  opacity: 0;
 }
+
+.stagger-children.visible > * {
+  animation: fadeInStagger var(--transition-slow) var(--ease-out) forwards;
+}
+
+.stagger-children.visible > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children.visible > *:nth-child(2) { animation-delay: 100ms; }
+.stagger-children.visible > *:nth-child(3) { animation-delay: 200ms; }
+.stagger-children.visible > *:nth-child(4) { animation-delay: 300ms; }
+.stagger-children.visible > *:nth-child(5) { animation-delay: 400ms; }
+.stagger-children.visible > *:nth-child(6) { animation-delay: 500ms; }
 
 /* ==========================================
    RESPONSIVE DESIGN
